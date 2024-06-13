@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="degree_prefix">°С</string>
+    <string name="update">Обновить</string>
+    <string name="error_has_occurred">Произошла ошибка</string>
+    <string name="was_updated">Обновлено:</string>
+    <string name="update_error">Ошибка при обновлении</string>
+</resources>
