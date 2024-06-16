@@ -3,7 +3,7 @@ package com.example.weather.ui.citiesScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.example.weather.data.repository.CitiesRepository
+import com.example.weather.domain.interactor.CitiesInteractor
 import com.example.weather.domain.model.City
 import com.example.weather.navigation.Screen
 import com.example.weather.ui.citiesScreen.state.CitiesScreenUiState
@@ -18,7 +18,7 @@ import javax.inject.Singleton
 @Singleton
 class CitiesScreenViewModel @Inject constructor(
     private val navController: NavController,
-    private val citiesRepository: CitiesRepository
+    private val citiesInteractor: CitiesInteractor,
 ) : ViewModel() {
 
     private val _citiesScreenUiState = MutableStateFlow<CitiesScreenUiState>(CitiesScreenUiState.Loading)
@@ -35,7 +35,7 @@ class CitiesScreenViewModel @Inject constructor(
     fun loadCities(){
         _citiesScreenUiState.value = CitiesScreenUiState.Loading
         viewModelScope.launch {
-            val result = citiesRepository.getCities()
+            val result = citiesInteractor.getCities(forceUpdate = true)
             _citiesScreenUiState.value = if (result.isSuccess){
                 val cities = result.getOrThrow().map { it.toCityUiModel() }
                 CitiesScreenUiState.Success(

@@ -37,24 +37,40 @@ import com.example.weather.ui.citiesScreen.state.CityUiModel
 import com.example.weather.ui.design.ErrorScreen
 import com.example.weather.ui.design.ProgressBar
 
+
 @Composable
 fun CitiesScreen(
     presenter: CitiesPresenter,
 ){
 
     val citiesUiState = presenter.citiesScreenUiState.collectAsState().value
-
     when(citiesUiState){
         is CitiesScreenUiState.Loading -> ProgressBar()
         is CitiesScreenUiState.Error -> {
             ErrorScreen(presenter::loadCities)
             Log.d("mytag", citiesUiState.message)
         }
-        is CitiesScreenUiState.Success -> ListWithCustomStickHeaderScreen(
-            groupedCities = citiesUiState.groupedCities,
-            cities = citiesUiState.cities,
-            onClick = presenter::navigateToWeather,
-        )
+        is CitiesScreenUiState.Success -> {
+
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+
+            ){
+
+            }
+
+
+
+            ListWithCustomStickHeaderScreen(
+                groupedCities = citiesUiState.groupedCities,
+                cities = citiesUiState.cities,
+                onClick = presenter::navigateToWeather,
+            )
+        }
+
+
+
     }
 }
 
@@ -65,6 +81,7 @@ fun ListWithCustomStickHeaderScreen(
     cities: List<CityUiModel>,
     onClick: (String) -> Unit,
 ) {
+
     Box(Modifier.fillMaxSize()) {
 
         val startIndexes = remember(cities) {

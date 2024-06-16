@@ -7,15 +7,15 @@ import kotlinx.serialization.Serializable
 data class CityDto(
 
     @SerialName("id")
-    val id: String = "",
+    val id: String,
 
     @SerialName("city")
-    val name: String = "",
+    val name: String,
 
     @SerialName("latitude")
-    val latitude: String = "",
+    val latitude: String,
 
     @SerialName("longitude")
-    val longitude: String = "",
+    val longitude: String,
 
 )
